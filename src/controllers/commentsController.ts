@@ -1,7 +1,9 @@
 import postsModel from '../models/postsModel';
 import { Request, Response } from 'express';
+
 import jwt from 'jsonwebtoken';
 import { JWTSECRET } from '../../config.json';
+
 import userSchema from '../models/userSchema';
 import authVerify from '../helpers/authVerify';
 
@@ -11,7 +13,7 @@ interface TokenPayload {
 
 class commentsController {
     static async createComment(req: Request, res: Response) {
-        const { text } = req.body; // Modificado de content para text para corresponder ao erro
+        const { text } = req.body; 
         const token = req.headers.authorization;
         const id = req.params.id;
 
@@ -29,12 +31,12 @@ class commentsController {
                 if (!post) throw new Error('Post not found');
 
                 const newComment = {
-                    text: text, // Modificado de content para text para corresponder ao erro
+                    text: text, 
                     author: user
                 };
 
-                post.comments.push(newComment); // Adiciona o novo comentário ao array de comentários do post
-                await post.save(); // Salva o post atualizado com o novo comentário
+                post.comments.push(newComment); 
+                await post.save(); 
             }
 
             res.status(200).json({ message: 'Comentário adicionado com sucesso' });
