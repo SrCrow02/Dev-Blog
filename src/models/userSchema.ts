@@ -20,6 +20,15 @@ const userSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    name: {
+        type: String
+    },
+    bio: {
+        type: String
+    },
+    avatar: {
+        type: String
     }
 
 });
