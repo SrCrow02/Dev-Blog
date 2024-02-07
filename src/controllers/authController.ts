@@ -4,10 +4,17 @@ import { hashSync, compareSync } from 'bcrypt';
 import { JWTSECRET } from '../../config.json';
 import jwt from 'jsonwebtoken';
 import blackListModel from '../models/blackListModel';
+import { validationResult } from 'express-validator';
 
 class UserController {
     static async createUser(req: Request, res: Response) {
         const { email, password } = req.body;
+
+        const error = validationResult(req);
+
+        if (!error.isEmpty()) {
+            return res.status(400).json({ error: error.array() });
+        }
 
         try {
             if (email && password) {
@@ -44,6 +51,12 @@ class UserController {
 
     static async loginUser(req: Request, res: Response) {
         const { email, password } = req.body;
+
+        const error = validationResult(req);
+
+        if (!error.isEmpty()) {
+            return res.status(400).json({ error: error.array() });
+        }
 
         try {
             if (!email || !password) {
