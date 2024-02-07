@@ -1,0 +1,64 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Blog API",
+        "description": "Esta API tem como objetivo ser consumida para um blog",
+        "termsOfService": "http://localhost:3000/terms",
+        "contact": {
+            "email": "guibio17@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:300",
+            "description": "API Para Testes"
+        }
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "summary": "Cadastro de usuário",
+                "description": "Essa rota é responsável por registrar o usuário na base de dados",
+                "tags": ["User"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "User": {
+                                    "value": {
+                                        "email": "guibio17@gmail.com",
+                                        "password": "123456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "response": {
+                    "401": {
+                        "description": "Unaithorized"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {  
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

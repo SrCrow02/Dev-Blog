@@ -3,7 +3,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { JWTSECRET } from '../../config.json';
 
 interface AuthRequest extends Request {
-    user?: JwtPayload; // Definindo o tipo de user como JwtPayload
+    user?: JwtPayload;
 }
 
 class UserVerify {
