@@ -3,12 +3,15 @@ import commentsController from '../controllers/commentsController';
 import HELPERS from '../helpers/authVerify';
 import express from 'express';
 
-const routerNews = express.Router();
+const routerPosts = express.Router();
 
-routerNews.post('/create', postsController.createPosts);
-routerNews.get('/show', postsController.showPosts);
-routerNews.put('/update', postsController.updatePosts);
-routerNews.delete('/delete/:id', postsController.deletePosts);
-routerNews.post('/create-comments/:id', HELPERS.verifyToken,  commentsController.createComment);
+routerPosts.post('/create', postsController.createPosts);
+routerPosts.get('/show', postsController.showPosts);
+routerPosts.put('/update', postsController.updatePosts);
+routerPosts.delete('/delete/:id', postsController.deletePosts);
 
-export default routerNews;
+routerPosts.post('/create-comments/:id', HELPERS.verifyToken, commentsController.createComment);
+routerPosts.get('/show-comments', HELPERS.verifyToken, commentsController.showComment);
+routerPosts.delete('/delete-comments/:postId/:commentId', HELPERS.verifyToken, commentsController.deleteComment);
+
+export default routerPosts;

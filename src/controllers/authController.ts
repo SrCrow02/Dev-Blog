@@ -14,12 +14,10 @@ class UserController {
 
                 const hashPassword = hashSync(password, 10);
 
-                // Adicione uma verificação para garantir que o email não seja nulo
                 if (!email) {
                     return res.status(400).json({ error: 'O email é obrigatório' });
                 }
 
-                // Adicione uma verificação para garantir que o password não seja nulo
                 if (!password) {
                     return res.status(400).json({ error: 'A senha é obrigatória' });
                 }
