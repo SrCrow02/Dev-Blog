@@ -23,16 +23,33 @@ class PostsController {
         }
     }
 
+
     static async showPosts(req: Request, res: Response) {
+        const { limit, offset } = req.query; 
+
+        let limitParse: number = Number(limit);
+        let offsetParse: number = Number(offset);
+
+        if (!limit) {
+            limitParse = 5;
+        }
+
+        if (!offset) {
+            offsetParse = 0;
+        }
+
+        console.log(limit, offset);
+
         try {
-            const tasks = await postsModel.Posts.find();
+            const tasks = await postsModel.Posts.find().skip(offsetParse).limit(limitParse);
 
             res.status(200).json(tasks);
         } catch(error) {
             console.log(error);
-            res.status(500).json({ message: 'There was a error with the server!'});
+            res.status(500).json({ message: 'Erro no servidor!'});
         }
     }
+
     
     static async updatePosts(req: Request, res: Response) {
         const { title, content, author, category } = req.body;
@@ -72,7 +89,7 @@ class PostsController {
                 res.status(400).json({ error: 'Informe o ID' });
             }
         } catch (err) {
-            console.error(err); // Log the actual error for debugging
+            console.error(err); 
             res.status(500).json({ error: 'Erro no servidor' });
         }
     }
