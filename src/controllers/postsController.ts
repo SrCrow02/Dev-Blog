@@ -23,7 +23,6 @@ class PostsController {
         }
     }
 
-
     static async showPosts(req: Request, res: Response) {
         const { limit, offset } = req.query; 
 
@@ -38,8 +37,6 @@ class PostsController {
             offsetParse = 0;
         }
 
-        console.log(limit, offset);
-
         try {
             const tasks = await postsModel.Posts.find().skip(offsetParse).limit(limitParse);
 
@@ -50,7 +47,6 @@ class PostsController {
         }
     }
 
-    
     static async updatePosts(req: Request, res: Response) {
         const { title, content, author, category } = req.body;
 

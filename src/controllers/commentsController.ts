@@ -43,8 +43,21 @@ class commentsController {
     }
 
     static async showComment(req: Request, res: Response) {
+        const { limit, offset } = req.query; 
+
+        let limitParse: number = Number(limit);
+        let offsetParse: number = Number(offset);
+
+        if (!limit) {
+            limitParse = 5;
+        }
+
+        if (!offset) {
+            offsetParse = 0;
+        }
+
         try {
-            const comments = await postsModel.Posts.find({}, { comments: 1 });
+            const comments = await postsModel.Posts.find({}, { comments: 1 }).skip(offsetParse).limit(limitParse);
 
             res.status(200).json(comments);
         } catch(error) {
