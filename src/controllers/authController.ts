@@ -5,6 +5,7 @@ import { JWTSECRET } from '../../config.json';
 import jwt from 'jsonwebtoken';
 import blackListModel from '../models/blackListModel';
 import { validationResult } from 'express-validator';
+import { setRedis } from '../redisConfig';
 
 class UserController {
     static async createUser(req: Request, res: Response) {
@@ -52,12 +53,6 @@ class UserController {
     static async loginUser(req: Request, res: Response) {
         const { email, password } = req.body;
 
-        const error = validationResult(req);
-
-        if (!error.isEmpty()) {
-            return res.status(400).json({ error: error.array() });
-        }
-
         try {
             if (!email || !password) {
                 res.status(401).json({ error: 'Por favor, digite os dados necessarios!'});
@@ -80,6 +75,8 @@ class UserController {
                     };
 
                     const token = jwt.sign(payload, JWTSECRET, { expiresIn: '1h' });
+
+                    await setRedis(`user-${user._id}`, JSON.stringify(user));
                     
                     res.json(token);
                 }

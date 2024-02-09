@@ -1,9 +1,16 @@
 import postsModel from '../models/postsModel';
 import { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
 
 class PostsController {
     static async createPosts(req: Request, res: Response) {
         const { title, content, author, category } = req.body;
+
+        const error = validationResult(req);
+
+        if (!error.isEmpty()) {
+            return res.status(400).json({ error: error.array() });
+        }
         
         if (title && category) {
             const createPost = new postsModel.Posts({
