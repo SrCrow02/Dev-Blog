@@ -25,9 +25,11 @@ class PostsController {
 
     static async showPosts(req: Request, res: Response) {
         const { limit, offset } = req.query; 
-
+        const category = req.query.category;
+    
         let limitParse: number = Number(limit);
         let offsetParse: number = Number(offset);
+        const categoryParser = String(category);
 
         if (!limit) {
             limitParse = 5;
@@ -38,9 +40,13 @@ class PostsController {
         }
 
         try {
-            const tasks = await postsModel.Posts.find().skip(offsetParse).limit(limitParse);
+            const posts = await postsModel.Posts.find().skip(offsetParse).limit(limitParse);
+            if (category) {
+                const posts_category = await postsModel.Posts.find({ category: categoryParser }).skip(offsetParse).limit(limitParse);
+                return res.status(200).json({ message: posts_category});
+            }
 
-            res.status(200).json(tasks);
+            res.status(200).json(posts);
         } catch(error) {
             console.log(error);
             res.status(500).json({ message: 'Erro no servidor!'});

@@ -14,4 +14,5 @@ routerPosts.post('/create-comments/:id', HELPERS.verifyToken, commentsController
 routerPosts.get('/show-comments', HELPERS.verifyToken, commentsController.showComment);
 routerPosts.delete('/delete-comments/:postId/:commentId', HELPERS.verifyToken, commentsController.deleteComment);
 
+
 export default routerPosts;

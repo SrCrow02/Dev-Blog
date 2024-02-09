@@ -38,7 +38,7 @@ const postsSchema = new mongoose.Schema({
     }]
 });
 
-const Posts = mongoose.model('News', postsSchema);
+const Posts = mongoose.model('Posts', postsSchema);
 
 export default { Posts };
 
