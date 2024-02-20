@@ -1,6 +1,6 @@
-import userSchema from '../models/userSchema';
+import userSchema from '../../models/userSchema';
 import { Request, Response } from 'express';
-import { getRedis } from '../redisConfig';
+import { getRedis } from '../../redisConfig';
 
 class profileController {
     static async editProfile(req: Request, res: Response) {

@@ -8,7 +8,6 @@ async function startDb() {
     } catch (err) {
         console.log('Erro ao se conectar com o DB');
     }
-
 }
 
 export default { startDb };

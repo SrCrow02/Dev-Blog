@@ -1,7 +1,7 @@
-import postsModel from '../models/postsModel';
+import postsModel from '../../models/postsModel';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { JWTSECRET } from '../../config.json';
+import { JWTSECRET } from '../../../config.json';
 
 interface TokenPayload {
     userId: string;
@@ -96,6 +96,7 @@ class commentsController {
             res.status(500).json({ error: 'Erro no servidor' });
         }
     }
+
 }
 
 export default commentsController;

@@ -22,6 +22,14 @@ const postsSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    likes: {
+        type: Number,
+        default: 0
+    },
+    blackListLikes: [{
+        type: String,
+        default: 'a@a'
+    }],
     comments: [{
         text: {
             type: String,
